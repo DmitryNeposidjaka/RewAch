@@ -15,7 +15,7 @@ class DatabaseSeeder extends Seeder
             'name' => 'Superadmin',
             'email' => 'admin@mail.com',
             'email_verified_at' => \Carbon\Carbon::now()->toDateTimeString(),
-            'password' => 'secret'
+            'password' => bcrypt('secret')
         ]);
         // $this->call(UsersTableSeeder::class);
     }
