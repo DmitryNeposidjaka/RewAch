@@ -18,8 +18,8 @@ class CreateAchievementsTable extends Migration
             $table->string('name', 255)->nullable();
             $table->text('description')->nullable();
             $table->string('thumbnail', 255)->nullable();
-            $table->integer('parent')->nullable()->unsigned();
             $table->boolean('active')->default(0);
+            $table->integer('parent')->unsigned()->nullable();
             $table->boolean('progressive')->default(0);
             $table->timestamps();
             $table->softDeletes();
@@ -28,7 +28,7 @@ class CreateAchievementsTable extends Migration
                 ->references('id')
                 ->on('achievements')
                 ->onUpdate('cascade')
-                ->onDelete('cascade');
+                ->onDelete('no action');
         });
     }
 

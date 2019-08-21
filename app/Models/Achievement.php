@@ -29,22 +29,24 @@ class Achievement extends Model
 
     public function getThumbnailPath()
     {
-        return Storage::disk('public')->exists($this->attributes['thumbnail'])? Storage::disk('public')->get($this->attributes['thumbnail']) : '';
-    }
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function parent()
-    {
-        return $this->belongsTo(Achievement::class, 'id', 'parent');
+        return Storage::disk('public')->exists($this->attributes['thumbnail']) ?
+            Storage::disk('public')->get($this->attributes['thumbnail']) :
+            '';
     }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
-    public function children()
+    public function parent()
     {
         return $this->hasOne(Achievement::class, 'id', 'parent');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function children()
+    {
+        return $this->belongsTo(Achievement::class, 'id', 'parent');
     }
 }
