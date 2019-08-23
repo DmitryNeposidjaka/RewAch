@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Requests\StoreAchievementResponce;
 use App\Models\Achievement;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
 
 class AchievementController extends Controller
 {
@@ -15,12 +16,17 @@ class AchievementController extends Controller
 
     public function detail(Achievement $achievement)
     {
-        return $achievement;
+        return $achievement->append('thumbnail_path');
     }
 
-    public function create(StoreAchievementResponce $request)
+    public function create(StoreAchievementResponce $request, Achievement $achievement)
     {
-        (new Achievement($request->all(['name', 'description'])))->save();
+        $achievement->fill($request->all(['name', 'description']));
+        if($request->hasFile('thumbnail')) {
+            $path = $request->file('thumbnail')->store('achievements/thumbnails', 'public');
+            $achievement->thumbnail = $path;
+        }
+        $achievement->save();
         return response()->json(['message' => 'Achievement created successful']);
     }
 

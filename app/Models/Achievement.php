@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Storage;
  * @package App\Models
  * @property $parent App\Models\Achievement|null
  * @property $children App\Models\Achievement|null
+ * @property $thumbnail_path string
  */
 class Achievement extends Model
 {
@@ -27,10 +28,10 @@ class Achievement extends Model
     ];
 
 
-    public function getThumbnailPath()
+    public function getThumbnailPathAttribute()
     {
         return Storage::disk('public')->exists($this->attributes['thumbnail']) ?
-            Storage::disk('public')->get($this->attributes['thumbnail']) :
+            Storage::disk('public')->url($this->attributes['thumbnail']) :
             '';
     }
 
