@@ -18,16 +18,24 @@ class Achievement extends Model
 {
     use SoftDeletes;
 
+    /**
+     * @var array
+     */
     protected $fillable = [
         'name', 'description', 'parent'
     ];
 
+    /**
+     * @var array
+     */
     protected $casts = [
         'active' => 'boolean',
         'progressive' => 'boolean',
     ];
 
-
+    /**
+     * @return string
+     */
     public function getThumbnailPathAttribute()
     {
         return Storage::disk('public')->exists($this->attributes['thumbnail']) ?

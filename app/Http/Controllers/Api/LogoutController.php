@@ -5,6 +5,10 @@ namespace App\Http\Controllers\Api;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
+/**
+ * Class LogoutController
+ * @package App\Http\Controllers\Api
+ */
 class LogoutController extends Controller
 {
     /**
