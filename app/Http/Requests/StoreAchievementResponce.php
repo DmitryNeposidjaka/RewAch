@@ -26,6 +26,7 @@ class StoreAchievementResponce extends FormRequest
         return [
             'name' => 'required|string|max:255',
             'description' => 'required|string',
+            'thumbnail' => 'nullable|image|max:1000'
         ];
     }
 }
