@@ -22,10 +22,10 @@ Route::prefix('v1')->namespace('Api')->group(function () {
     Route::post('logout', 'LogoutController')->middleware('auth:api')->name('logout');
 
     Route::prefix('achievement')->middleware('auth:api')->group(function () {
-        Route::get('/all', 'AchievementController@getAll');
-        Route::get('/{achievement}', 'AchievementController@detail');
-        Route::post('/', 'AchievementController@create');
-        Route::post('/{achievement}', 'AchievementController@update');
-        Route::delete('/{achievement}', 'AchievementController@delete');
+        Route::get('/all', 'AchievementController@getAll')->name('achievement.all');
+        Route::get('/{achievement}', 'AchievementController@detail')->name('achievement.detail');
+        Route::post('/', 'AchievementController@create')->name('achievement.create');
+        Route::post('/{achievement}', 'AchievementController@update')->name('achievement.update');
+        Route::delete('/{achievement}', 'AchievementController@delete')->name('achievement.delete');
     });
 });
