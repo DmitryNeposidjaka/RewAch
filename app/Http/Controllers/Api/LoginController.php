@@ -5,12 +5,19 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ApiLoginRequest;
+use App\Models\User;
 use Carbon\Carbon;
 
+/**
+ * Class LoginController
+ * @package App\Http\Controllers\Api
+ */
 class LoginController extends Controller
 {
-
-
+    /**
+     * @param ApiLoginRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function __invoke(ApiLoginRequest $request)
     {
         $attempted = auth()->attempt($request->only(['email', 'password']));
@@ -20,7 +27,11 @@ class LoginController extends Controller
                 'errors' => 'Unauthorised'
             ], 401);
         }
-        $access = auth()->user()->createToken(config('app.name'));
+        /**
+         * @var $user User
+         */
+        $user = auth()->user();
+        $access = $user->createToken(config('app.name'));
         $access->token->expires_at = $request->input('remember', false) ?
             Carbon::now()->addMonth() :
             Carbon::now()->addDay();
