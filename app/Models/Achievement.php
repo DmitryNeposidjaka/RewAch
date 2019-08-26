@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Storage;
  * @property $parent App\Models\Achievement|null
  * @property $children App\Models\Achievement|null
  * @property $thumbnail_path string
+ * @property $approves App\Models\Approve|null
  */
 class Achievement extends Model
 {
@@ -57,5 +58,13 @@ class Achievement extends Model
     public function children()
     {
         return $this->belongsTo(Achievement::class, 'id', 'parent');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\MorphMany
+     */
+    public function approves()
+    {
+        return $this->morphMany(Approve::class, 'entity');
     }
 }

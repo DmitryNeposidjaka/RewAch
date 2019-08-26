@@ -26,7 +26,7 @@ class AchievementController extends Controller
      */
     public function detail(Achievement $achievement)
     {
-        return $achievement->append('thumbnail_path')->load(['children', 'parent']);
+        return $achievement->append('thumbnail_path')->load(['children', 'parent', 'approves']);
     }
 
     /** Create Achievement

@@ -28,4 +28,8 @@ Route::prefix('v1')->namespace('Api')->group(function () {
         Route::post('/{achievement}', 'AchievementController@update')->name('achievement.update');
         Route::delete('/{achievement}', 'AchievementController@delete')->name('achievement.delete');
     });
+
+    Route::prefix('approves')->middleware('auth:api')->group(function() {
+         Route::get('/all', 'ApproveController@getAll')->name('approve.all');
+    });
 });
