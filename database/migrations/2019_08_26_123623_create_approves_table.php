@@ -19,6 +19,8 @@ class CreateApprovesTable extends Migration
             $table->softDeletes();
             $table->timestamps();
 
+            $table->unique(['user_id', 'entity_type', 'entity_id', 'deleted_at']);
+
             $table->foreign('user_id')
                 ->references('id')->on('users')
                 ->onDelete('cascade')

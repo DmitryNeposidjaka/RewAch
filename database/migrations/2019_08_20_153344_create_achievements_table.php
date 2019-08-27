@@ -19,7 +19,7 @@ class CreateAchievementsTable extends Migration
             $table->text('description')->nullable();
             $table->string('thumbnail', 255)->nullable();
             $table->boolean('active')->default(0);
-            $table->integer('parent')->unsigned()->nullable();
+            $table->bigInteger('parent')->unsigned()->nullable();
             $table->boolean('progressive')->default(0);
             $table->timestamps();
             $table->softDeletes();

@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Storage;
  * @property $thumbnail_path string
  * @property $approves App\Models\Approve|null
  */
-class Achievement extends Model
+class Achievement extends Model implements HasApproved
 {
     use SoftDeletes;
 
@@ -67,4 +67,24 @@ class Achievement extends Model
     {
         return $this->morphMany(Approve::class, 'entity');
     }
+
+    /**
+     * @param User $user
+     * @return bool
+     */
+    public function isApprovedBy(User $user): bool
+    {
+        return $this->approves()->where('user_id', $user->id)->exists();
+    }
+
+    /**
+     * @param User $user
+     * @return Approve|\Illuminate\Database\Eloquent\Relations\MorphMany|null|object
+     */
+    public function getApproveByUser(User $user)
+    {
+        return $this->approves()->where('user_id', $user->id)->first();
+    }
+
+
 }

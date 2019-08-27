@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Laravel\Passport\HasApiTokens;
@@ -33,6 +34,7 @@ use Laravel\Passport\HasApiTokens;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereUpdatedAt($value)
  * @mixin \Eloquent
  * @mixin HasApiTokens
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Approve[] $approves
  */
 class User extends Authenticatable
 {
@@ -64,4 +66,40 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function approves()
+    {
+        return $this->hasMany(Approve::class);
+    }
+
+    /**
+     * @param Model $model
+     * @return false|Approve
+     */
+    public function approve(Model $model)
+    {
+        $approve = new Approve;
+        $approve->entity()->associate($model);
+        return $this->approves()->save($approve);
+    }
+
+    /**
+     * @param HasApproved $model
+     * @throws \Exception
+     */
+    public function deny(HasApproved $model)
+    {
+        if ($model->isApprovedBy($this)) {
+            /**
+             * @var $approve Model
+             */
+            $model->getApproveByUser($this);
+            //  TODO finish deny
+        }
+
+
+    }
 }

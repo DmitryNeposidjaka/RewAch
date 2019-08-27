@@ -36,6 +36,8 @@ class Approve extends Model
 {
     use SoftDeletes;
 
+    public $incrementing = false;
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\MorphTo
      */

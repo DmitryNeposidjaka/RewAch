@@ -29,6 +29,14 @@ class AchievementController extends Controller
         return $achievement->append('thumbnail_path')->load(['children', 'parent', 'approves']);
     }
 
+    /** Get Achievements waiting for approve
+     * @return Achievement[]|\Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection|\Illuminate\Support\Collection
+     */
+    public function getWaiting()
+    {
+        return Achievement::with(['children', 'parent'])->where('active', false)->get();
+    }
+
     /** Create Achievement
      * @param StoreAchievementResponce $request
      * @param Achievement $achievement

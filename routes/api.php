@@ -23,7 +23,8 @@ Route::prefix('v1')->namespace('Api')->group(function () {
 
     Route::prefix('achievement')->middleware('auth:api')->group(function () {
         Route::get('/all', 'AchievementController@getAll')->name('achievement.all');
-        Route::get('/{achievement}', 'AchievementController@detail')->name('achievement.detail');
+        Route::get('/waiting', 'AchievementController@getWaiting');
+        Route::get('/{achievement}/detail', 'AchievementController@detail')->name('achievement.detail');
         Route::post('/', 'AchievementController@create')->name('achievement.create');
         Route::post('/{achievement}', 'AchievementController@update')->name('achievement.update');
         Route::delete('/{achievement}', 'AchievementController@delete')->name('achievement.delete');
@@ -31,5 +32,7 @@ Route::prefix('v1')->namespace('Api')->group(function () {
 
     Route::prefix('approves')->middleware('auth:api')->group(function() {
          Route::get('/all', 'ApproveController@getAll')->name('approve.all');
+         Route::post('/{achievement}/allow', 'ApproveController@achievementAllow')->name('approve.allow');
+         Route::post('/{achievement}/deny', 'ApproveController@achievementDeny')->name('approve.deny');
     });
 });
