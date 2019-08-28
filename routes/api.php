@@ -35,4 +35,11 @@ Route::prefix('v1')->namespace('Api')->group(function () {
          Route::post('/{achievement}/allow', 'ApproveController@achievementAllow')->name('approve.allow');
          Route::post('/{achievement}/deny', 'ApproveController@achievementDeny')->name('approve.deny');
     });
+
+    Route::prefix('reward')->middleware('auth:api')->group(function () {
+        Route::get('/all', 'rewardController@getAll')->name('reward.all');
+        Route::get('/my', 'rewardController@getMy')->name('reward.my');
+        Route::post('/{achievement}/to/{user}', 'rewardController@create')->name('reward.create');
+        Route::post('/{achievement}/to/{user}/deny', 'rewardController@delete')->name('reward.delete');
+    });
 });

@@ -36,6 +36,7 @@ use Laravel\Passport\HasApiTokens;
  * @mixin HasApiTokens
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Approve[] $approves
  * @property Achievement[] $authoring
+ * @property Achievement[] $achievements
  */
 class User extends Authenticatable
 {
@@ -82,6 +83,11 @@ class User extends Authenticatable
     public function authoring()
     {
         return $this->hasMany(Achievement::class, 'author', 'id');
+    }
+
+    public function achievements()
+    {
+        return $this->belongsToMany(Achievement::class, 'rewards');
     }
 
     /**
