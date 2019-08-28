@@ -30,7 +30,7 @@ Route::prefix('v1')->namespace('Api')->group(function () {
         Route::delete('/{achievement}', 'AchievementController@delete')->name('achievement.delete');
     });
 
-    Route::prefix('approves')->middleware('auth:api')->group(function() {
+    Route::prefix('approve')->middleware('auth:api')->group(function() {
          Route::get('/all', 'ApproveController@getAll')->name('approve.all');
          Route::post('/{achievement}/allow', 'ApproveController@achievementAllow')->name('approve.allow');
          Route::post('/{achievement}/deny', 'ApproveController@achievementDeny')->name('approve.deny');
