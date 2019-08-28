@@ -3,6 +3,7 @@
 namespace App\Models;
 
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Storage;
@@ -15,6 +16,8 @@ use Illuminate\Support\Facades\Storage;
  * @property $thumbnail_path string
  * @property $approves App\Models\Approve|null
  * @property $author App\Models\User
+ * @method Builder approved()
+ * @method Builder notApproved()
  */
 class Achievement extends Model implements HasApproved
 {
@@ -43,6 +46,24 @@ class Achievement extends Model implements HasApproved
         return Storage::disk('public')->exists($this->attributes['thumbnail']) ?
             Storage::disk('public')->url($this->attributes['thumbnail']) :
             '';
+    }
+
+    /**
+     * @param Builder $query
+     * @return Builder
+     */
+    public function scopeApproved(Builder $query)
+    {
+        return $query->where('approved', true);
+    }
+
+    /**
+     * @param Builder $query
+     * @return Builder
+     */
+    public function scopeNotApproved(Builder $query)
+    {
+        return $query->where('approved', false);
     }
 
     /**
@@ -95,5 +116,21 @@ class Achievement extends Model implements HasApproved
         return $this->approves()->where('user_id', $user->id)->first();
     }
 
+    /** Approve current achievement
+     * @return bool
+     */
+    public function approve()
+    {
+        $this->approved = true;
+        return $this->save();
+    }
 
+    /** Remove approving from current achievement
+     * @return bool
+     */
+    public function disApprove()
+    {
+        $this->approved = false;
+        return $this->save();
+    }
 }

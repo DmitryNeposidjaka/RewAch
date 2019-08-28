@@ -42,8 +42,8 @@ class ApproveController extends Controller
          */
         $user = auth()->user();
         if($user->deny($achievement)) {
-            return response()->json(['message' => 'approved']);
+            return response()->json(['message' => 'denied']);
         }
-        return response()->json(['message' => 'not approved']);
+        return response()->json(['message' => 'not denied']);
     }
 }

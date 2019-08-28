@@ -228,4 +228,8 @@ return [
 
     ],
 
+    'approves' => [
+        'achievement' => env('ACHIEVEMENT_APPROVES', 3)
+    ]
+
 ];

@@ -34,7 +34,7 @@ class AchievementController extends Controller
      */
     public function getWaiting()
     {
-        return Achievement::with(['children', 'parent'])->where('active', false)->get();
+        return Achievement::with(['children', 'parent'])->notApproved()->get();
     }
 
     /** Create Achievement

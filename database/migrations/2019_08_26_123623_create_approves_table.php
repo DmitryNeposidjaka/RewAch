@@ -14,6 +14,7 @@ class CreateApprovesTable extends Migration
     public function up()
     {
         Schema::create('approves', function (Blueprint $table) {
+            $table->bigIncrements('id');
             $table->bigInteger('user_id')->unsigned();
             $table->morphs('entity');
             $table->timestamps();
@@ -22,7 +23,7 @@ class CreateApprovesTable extends Migration
 
             $table->foreign('user_id')
                 ->references('id')->on('users')
-                ->onDelete('cascade')
+                ->onDelete('no action')
                 ->onUpdate('cascade');
         });
     }

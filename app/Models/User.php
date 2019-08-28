@@ -86,27 +86,29 @@ class User extends Authenticatable
 
     /**
      * @param Model $model
-     * @return false|Approve
+     * @return boolean
      */
     public function approve(Model $model)
     {
         $approve = new Approve;
         $approve->entity()->associate($model);
-        return $this->approves()->save($approve);
+        $approve->surety()->associate($this)->save();
+        return true;
     }
 
     /**
-     * @param HasApproved $model
+     * @param HasApproved|Model|Achievement $model
      * @throws \Exception
      */
     public function deny(HasApproved $model)
     {
         if ($model->isApprovedBy($this)) {
             /**
-             * @var $approve Model
+             * @var Approve $approve
              */
-            $model->getApproveByUser($this);
-            //  TODO finish deny
+            $approve = $model->getApproveByUser($this);
+            return $approve->delete();
         }
+        return false;
     }
 }

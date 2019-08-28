@@ -16,12 +16,12 @@ class ApproveObserver
     public function created(Approve $approve)
     {
         $entity = $approve->entity;
-        if($entity && $approve->entity_type == Approve::class) {
+        if($entity && $approve->entity_type == Achievement::class) {
             /**
              * @var $entity Achievement
              */
-            if(count($entity->approves) == 2) {
-                $entity->update(['active' => true]);
+            if(count($entity->approves) == intval(config('app.approves.achievement'))) {
+                $entity->approve();
             }
         }
     }
@@ -45,7 +45,15 @@ class ApproveObserver
      */
     public function deleted(Approve $approve)
     {
-        //
+        $entity = $approve->entity;
+        if($entity && $approve->entity_type == Achievement::class) {
+            /**
+             * @var $entity Achievement
+             */
+            if(count($entity->approves) != intval(config('app.approves.achievement'))) {
+                $entity->disApprove();
+            }
+        }
     }
 
     /**

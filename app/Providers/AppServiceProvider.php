@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Models\Approve;
+use App\Observers\ApproveObserver;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\ServiceProvider;
 
@@ -26,6 +28,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        Approve::observe(ApproveObserver::class);
     }
 }

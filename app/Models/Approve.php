@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * Class Approve
@@ -13,7 +12,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property int $user_id
  * @property string $entity_type
  * @property int $entity_id
- * @property \Illuminate\Support\Carbon|null $deleted_at
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @method static bool|null forceDelete()
@@ -34,10 +32,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  */
 class Approve extends Model
 {
-    use SoftDeletes;
-
-    public $incrementing = false;
-
     /**
      * @return \Illuminate\Database\Eloquent\Relations\MorphTo
      */
@@ -45,4 +39,13 @@ class Approve extends Model
     {
         return $this->morphTo();
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function surety()
+    {
+        return $this->belongsTo(User::class, 'user_id', 'id');
+    }
+
 }
