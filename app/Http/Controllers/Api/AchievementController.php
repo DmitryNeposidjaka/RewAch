@@ -17,7 +17,7 @@ class AchievementController extends Controller
      */
     public function getAll()
     {
-        return Achievement::with(['children', 'parent'])->get();
+        return Achievement::with(['children', 'parent', 'authoredBy'])->get();
     }
 
     /** Get Achievement with detail
@@ -26,7 +26,15 @@ class AchievementController extends Controller
      */
     public function detail(Achievement $achievement)
     {
-        return $achievement->append('thumbnail_path')->load(['children', 'parent']);
+        return $achievement->append('thumbnail_path')->load(['children', 'parent', 'approves']);
+    }
+
+    /** Get Achievements waiting for approve
+     * @return Achievement[]|\Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection|\Illuminate\Support\Collection
+     */
+    public function getWaiting()
+    {
+        return Achievement::with(['children', 'parent'])->notApproved()->get();
     }
 
     /** Create Achievement

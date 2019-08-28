@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Laravel\Passport\HasApiTokens;
@@ -33,6 +34,8 @@ use Laravel\Passport\HasApiTokens;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereUpdatedAt($value)
  * @mixin \Eloquent
  * @mixin HasApiTokens
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Approve[] $approves
+ * @property Achievement[] $authoring
  */
 class User extends Authenticatable
 {
@@ -64,4 +67,48 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function approves()
+    {
+        return $this->hasMany(Approve::class);
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function authoring()
+    {
+        return $this->hasMany(Achievement::class, 'author', 'id');
+    }
+
+    /**
+     * @param Model $model
+     * @return boolean
+     */
+    public function approve(Model $model)
+    {
+        $approve = new Approve;
+        $approve->entity()->associate($model);
+        $approve->surety()->associate($this)->save();
+        return true;
+    }
+
+    /**
+     * @param HasApproved|Model|Achievement $model
+     * @throws \Exception
+     */
+    public function deny(HasApproved $model)
+    {
+        if ($model->isApprovedBy($this)) {
+            /**
+             * @var Approve $approve
+             */
+            $approve = $model->getApproveByUser($this);
+            return $approve->delete();
+        }
+        return false;
+    }
 }
