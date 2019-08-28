@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Storage;
  * @property $children App\Models\Achievement|null
  * @property $thumbnail_path string
  * @property $approves App\Models\Approve|null
+ * @property $author App\Models\User
  */
 class Achievement extends Model implements HasApproved
 {
@@ -23,14 +24,14 @@ class Achievement extends Model implements HasApproved
      * @var array
      */
     protected $fillable = [
-        'name', 'description', 'parent'
+        'name', 'description', 'parent', 'author'
     ];
 
     /**
      * @var array
      */
     protected $casts = [
-        'active' => 'boolean',
+        'approved' => 'boolean',
         'progressive' => 'boolean',
     ];
 
@@ -50,6 +51,14 @@ class Achievement extends Model implements HasApproved
     public function parent()
     {
         return $this->hasOne(Achievement::class, 'id', 'parent');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function authoredBy()
+    {
+        return $this->belongsTo(User::class, 'author', 'id');
     }
 
     /**

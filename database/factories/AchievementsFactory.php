@@ -9,6 +9,6 @@ $factory->define(Achievement::class, function (Faker $faker) {
     return [
         'name' => $faker->name,
         'description' => $faker->realText(),
-        'active' => true
+        'approved' => false
     ];
 });

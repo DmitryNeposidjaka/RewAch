@@ -17,7 +17,7 @@ class AchievementController extends Controller
      */
     public function getAll()
     {
-        return Achievement::with(['children', 'parent'])->get();
+        return Achievement::with(['children', 'parent', 'authoredBy'])->get();
     }
 
     /** Get Achievement with detail
