@@ -52,9 +52,9 @@ class Achievement extends Model implements HasApproved
      * @param Builder $query
      * @return Builder
      */
-    public function scopeApproved(Builder $query)
+    public function scopeApproved(Builder $query): Builder
     {
-        return $query->where($this->getTable().'.approved', true);
+        return $query->where($this->getTable() . '.approved', true);
     }
 
     /**

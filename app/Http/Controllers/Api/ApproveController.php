@@ -25,9 +25,9 @@ class ApproveController extends Controller
          */
         $user = auth()->user();
         if($user->approve($entity)) {
-            return response()->json(['message' => 'approved']);
+            return response()->json(['message' => 'approved'])->setStatusCode(202);
         }
-        return response()->json(['message' => 'not approved']);
+        return response()->json(['message' => 'not approved'])->setStatusCode(400);
     }
 
     /**
@@ -42,8 +42,8 @@ class ApproveController extends Controller
          */
         $user = auth()->user();
         if($user->deny($entity)) {
-            return response()->json(['message' => 'denied']);
+            return response()->json(['message' => 'denied'])->setStatusCode(202);
         }
-        return response()->json(['message' => 'not denied']);
+        return response()->json(['message' => 'not denied'])->setStatusCode(400);
     }
 }

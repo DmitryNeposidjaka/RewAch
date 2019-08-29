@@ -3,6 +3,9 @@
 namespace App\Models;
 
 
+use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Illuminate\Database\Eloquent\Builder;
+
 interface HasApproved
 {
     public function isApprovedBy(User $user): bool;
@@ -13,5 +16,7 @@ interface HasApproved
 
     public function disApprove(): bool;
 
-    public function approves(): \Illuminate\Database\Eloquent\Relations\MorphMany;
+    public function approves(): MorphMany;
+
+    public function scopeApproved(Builder $query): Builder;
 }

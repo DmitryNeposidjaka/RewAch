@@ -16,6 +16,24 @@ class Reward extends Model implements HasApproved
     use HasApprovedTrait;
 
     /**
+     * @param Builder $query
+     * @return Builder
+     */
+    public function scopeApproved(Builder $query): Builder
+    {
+        return $query->where($this->getTable() . '.approved', true);
+    }
+
+    /**
+     * @param Builder $query
+     * @return Builder
+     */
+    public function scopeNotApproved(Builder $query)
+    {
+        return $query->where('approved', false);
+    }
+
+    /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function user()
@@ -29,15 +47,6 @@ class Reward extends Model implements HasApproved
     public function achievement()
     {
         return $this->belongsTo(Achievement::class);
-    }
-
-    /**
-     * @param Builder $query
-     * @return Builder
-     */
-    public function scopeApproved(Builder $query)
-    {
-        return $query->where($this->getTable().'.approved', true);
     }
 
 }

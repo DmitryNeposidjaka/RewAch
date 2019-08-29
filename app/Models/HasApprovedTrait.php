@@ -6,18 +6,17 @@ namespace App\Models;
 /**
  * Trait HasApprovedTrait
  * @package App\Models
- * @
  */
 trait HasApprovedTrait
 {
     /**
      * Define a polymorphic one-to-many relationship.
      *
-     * @param  string  $related
-     * @param  string  $name
-     * @param  string  $type
-     * @param  string  $id
-     * @param  string  $localKey
+     * @param  string $related
+     * @param  string $name
+     * @param  string $type
+     * @param  string $id
+     * @param  string $localKey
      * @return \Illuminate\Database\Eloquent\Relations\MorphMany
      */
     abstract function morphMany($related, $name, $type = null, $id = null, $localKey = null);
@@ -25,7 +24,7 @@ trait HasApprovedTrait
     /**
      * Save the model to the database.
      *
-     * @param  array  $options
+     * @param  array $options
      * @return bool
      */
     abstract function save(array $options = []);

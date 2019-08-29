@@ -20,7 +20,7 @@ class RewardController extends Controller
          * @var $user User
          */
         $user = auth()->user();
-        return $user->achievements()->scopes(['approved'])->get();
+        return $user->achievements()->withPivotValue('approved', true)->scopes(['approved'])->get();
     }
 
     public function create(Achievement $achievement, User $user)
