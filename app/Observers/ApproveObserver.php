@@ -28,7 +28,7 @@ class ApproveObserver
             /**
              * @var $entity Reward
              */
-            if(count($entity->approves) == intval(config('app.approves.rewards'))) {
+            if(count($entity->approves) != intval(config('app.approves.rewards'))) {
                 $entity->approve();
             }
         }
@@ -65,8 +65,8 @@ class ApproveObserver
             /**
              * @var $entity Reward
              */
-            if(count($entity->approves) == intval(config('app.approves.rewards'))) {
-                $entity->approve();
+            if(count($entity->approves) != intval(config('app.approves.rewards'))) {
+                $entity->disApprove();
             }
         }
     }

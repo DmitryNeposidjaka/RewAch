@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Models\Achievement;
 use App\Models\Approve;
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use Illuminate\Database\Eloquent\Model;
 
 class ApproveController extends Controller
 {
@@ -15,33 +15,33 @@ class ApproveController extends Controller
     }
 
     /**
-     * @param Achievement $achievement
+     * @param Model $entity
      * @return \Illuminate\Http\JsonResponse
      */
-    public function achievementAllow(Achievement $achievement)
+    public function entityAllow(Model $entity)
     {
         /**
          * @var User $user
          */
         $user = auth()->user();
-        if($user->approve($achievement)) {
+        if($user->approve($entity)) {
             return response()->json(['message' => 'approved']);
         }
         return response()->json(['message' => 'not approved']);
     }
 
     /**
-     * @param Achievement $achievement
+     * @param Model $entity
      * @return \Illuminate\Http\JsonResponse
      * @throws \Exception
      */
-    public function achievementDeny(Achievement $achievement)
+    public function entityDeny(Model $entity)
     {
         /**
          * @var User $user
          */
         $user = auth()->user();
-        if($user->deny($achievement)) {
+        if($user->deny($entity)) {
             return response()->json(['message' => 'denied']);
         }
         return response()->json(['message' => 'not denied']);

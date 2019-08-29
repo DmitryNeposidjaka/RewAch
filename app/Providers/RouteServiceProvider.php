@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Models\Achievement;
+use App\Models\Reward;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 
@@ -23,9 +25,18 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
-
         parent::boot();
+
+        Route::bind('entity', function ($value) {
+            if (Route::current()->named('approve.achievement*')) {
+                return Achievement::findOrFail($value);
+            } elseif (Route::current()->named('approve.reward*')) {
+                return Reward::findOrFail($value);
+            } else {
+                abort(404);
+                return null;
+            }
+        });
     }
 
     /**
