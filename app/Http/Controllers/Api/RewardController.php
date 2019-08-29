@@ -14,6 +14,11 @@ class RewardController extends Controller
         return Reward::all();
     }
 
+    public function getWaiting()
+    {
+        return Reward::notApproved()->get();
+    }
+
     public function getMy()
     {
         /**

@@ -9,7 +9,9 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * Class Reward
  * @package App\Models
- * @property Approve[] $approves
+ * @property Approve[]
+ * @method static Builder approved()
+ * @method static Builder notApproved()
  */
 class Reward extends Model implements HasApproved
 {
