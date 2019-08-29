@@ -23,6 +23,7 @@ Route::prefix('v1')->namespace('Api')->group(function () {
 
     Route::prefix('achievement')->middleware('auth:api')->group(function () {
         Route::get('/all', 'AchievementController@getAll')->name('achievement.all');
+        Route::get('/my', 'AchievementController@getMy')->name('achievement.my');
         Route::get('/waiting', 'AchievementController@getWaiting')->name('achievement.waiting');
         Route::get('/{achievement}/detail', 'AchievementController@detail')->name('achievement.detail');
         Route::post('/', 'AchievementController@create')->name('achievement.create');
@@ -41,7 +42,6 @@ Route::prefix('v1')->namespace('Api')->group(function () {
     Route::prefix('reward')->middleware('auth:api')->group(function () {
         Route::get('/all', 'RewardController@getAll')->name('reward.all');
         Route::get('/waiting', 'RewardController@getWaiting')->name('reward.waiting');
-        Route::get('/my', 'RewardController@getMy')->name('reward.my');
         Route::post('/{achievement}/to/{user}', 'RewardController@create')->name('reward.create');
         Route::post('/{achievement}/to/{user}/deny', 'RewardController@delete')->name('reward.delete');
     });
