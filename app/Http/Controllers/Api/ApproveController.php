@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Models\Achievement;
 use App\Models\Approve;
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use Illuminate\Database\Eloquent\Model;
 
 class ApproveController extends Controller
 {
@@ -15,35 +15,35 @@ class ApproveController extends Controller
     }
 
     /**
-     * @param Achievement $achievement
+     * @param Model $entity
      * @return \Illuminate\Http\JsonResponse
      */
-    public function achievementAllow(Achievement $achievement)
+    public function entityAllow(Model $entity)
     {
         /**
          * @var User $user
          */
         $user = auth()->user();
-        if($user->approve($achievement)) {
-            return response()->json(['message' => 'approved']);
+        if($user->approve($entity)) {
+            return response()->json(['message' => 'approved'])->setStatusCode(202);
         }
-        return response()->json(['message' => 'not approved']);
+        return response()->json(['message' => 'not approved'])->setStatusCode(400);
     }
 
     /**
-     * @param Achievement $achievement
+     * @param Model $entity
      * @return \Illuminate\Http\JsonResponse
      * @throws \Exception
      */
-    public function achievementDeny(Achievement $achievement)
+    public function entityDeny(Model $entity)
     {
         /**
          * @var User $user
          */
         $user = auth()->user();
-        if($user->deny($achievement)) {
-            return response()->json(['message' => 'denied']);
+        if($user->deny($entity)) {
+            return response()->json(['message' => 'denied'])->setStatusCode(202);
         }
-        return response()->json(['message' => 'not denied']);
+        return response()->json(['message' => 'not denied'])->setStatusCode(400);
     }
 }

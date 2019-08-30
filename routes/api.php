@@ -23,7 +23,8 @@ Route::prefix('v1')->namespace('Api')->group(function () {
 
     Route::prefix('achievement')->middleware('auth:api')->group(function () {
         Route::get('/all', 'AchievementController@getAll')->name('achievement.all');
-        Route::get('/waiting', 'AchievementController@getWaiting');
+        Route::get('/my', 'AchievementController@getMy')->name('achievement.my');
+        Route::get('/waiting', 'AchievementController@getWaiting')->name('achievement.waiting');
         Route::get('/{achievement}/detail', 'AchievementController@detail')->name('achievement.detail');
         Route::post('/', 'AchievementController@create')->name('achievement.create');
         Route::post('/{achievement}', 'AchievementController@update')->name('achievement.update');
@@ -32,7 +33,16 @@ Route::prefix('v1')->namespace('Api')->group(function () {
 
     Route::prefix('approve')->middleware('auth:api')->group(function() {
          Route::get('/all', 'ApproveController@getAll')->name('approve.all');
-         Route::post('/{achievement}/allow', 'ApproveController@achievementAllow')->name('approve.allow');
-         Route::post('/{achievement}/deny', 'ApproveController@achievementDeny')->name('approve.deny');
+         Route::post('/achievement/{entity}/allow', 'ApproveController@entityAllow')->name('approve.achievement.allow');
+         Route::post('/achievement/{entity}/deny', 'ApproveController@entityDeny')->name('approve.achievement.deny');
+         Route::post('/reward/{entity}/allow', 'ApproveController@entityAllow')->name('approve.reward.allow');
+         Route::post('/reward/{entity}/deny', 'ApproveController@entityDeny')->name('approve.reward.deny');
+    });
+
+    Route::prefix('reward')->middleware('auth:api')->group(function () {
+        Route::get('/all', 'RewardController@getAll')->name('reward.all');
+        Route::get('/waiting', 'RewardController@getWaiting')->name('reward.waiting');
+        Route::post('/{achievement}/to/{user}', 'RewardController@create')->name('reward.create');
+        Route::post('/{achievement}/to/{user}/deny', 'RewardController@delete')->name('reward.delete');
     });
 });

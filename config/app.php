@@ -229,7 +229,8 @@ return [
     ],
 
     'approves' => [
-        'achievement' => env('ACHIEVEMENT_APPROVES', 3)
+        'achievement' => env('ACHIEVEMENT_APPROVES', 3),
+        'rewards' => env('REWARD_APPROVES', 3),
     ]
 
 ];

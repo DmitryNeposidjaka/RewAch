@@ -21,7 +21,7 @@ use Illuminate\Support\Facades\Storage;
  */
 class Achievement extends Model implements HasApproved
 {
-    use SoftDeletes;
+    use SoftDeletes, HasApprovedTrait;
 
     /**
      * @var array
@@ -52,9 +52,9 @@ class Achievement extends Model implements HasApproved
      * @param Builder $query
      * @return Builder
      */
-    public function scopeApproved(Builder $query)
+    public function scopeApproved(Builder $query): Builder
     {
-        return $query->where('approved', true);
+        return $query->where($this->getTable() . '.approved', true);
     }
 
     /**
@@ -88,49 +88,5 @@ class Achievement extends Model implements HasApproved
     public function children()
     {
         return $this->belongsTo(Achievement::class, 'id', 'parent');
-    }
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\MorphMany
-     */
-    public function approves()
-    {
-        return $this->morphMany(Approve::class, 'entity');
-    }
-
-    /**
-     * @param User $user
-     * @return bool
-     */
-    public function isApprovedBy(User $user): bool
-    {
-        return $this->approves()->where('user_id', $user->id)->exists();
-    }
-
-    /**
-     * @param User $user
-     * @return Approve|\Illuminate\Database\Eloquent\Relations\MorphMany|null|object
-     */
-    public function getApproveByUser(User $user)
-    {
-        return $this->approves()->where('user_id', $user->id)->first();
-    }
-
-    /** Approve current achievement
-     * @return bool
-     */
-    public function approve()
-    {
-        $this->approved = true;
-        return $this->save();
-    }
-
-    /** Remove approving from current achievement
-     * @return bool
-     */
-    public function disApprove()
-    {
-        $this->approved = false;
-        return $this->save();
     }
 }

@@ -4,6 +4,7 @@ namespace App\Observers;
 
 use App\Models\Achievement;
 use App\Models\Approve;
+use App\Models\Reward;
 
 class ApproveObserver
 {
@@ -21,6 +22,13 @@ class ApproveObserver
              * @var $entity Achievement
              */
             if(count($entity->approves) == intval(config('app.approves.achievement'))) {
+                $entity->approve();
+            }
+        } elseif($entity && $approve->entity_type == Reward::class) {
+            /**
+             * @var $entity Reward
+             */
+            if(count($entity->approves) == intval(config('app.approves.rewards'))) {
                 $entity->approve();
             }
         }
@@ -51,6 +59,13 @@ class ApproveObserver
              * @var $entity Achievement
              */
             if(count($entity->approves) != intval(config('app.approves.achievement'))) {
+                $entity->disApprove();
+            }
+        } elseif($entity && $approve->entity_type == Reward::class) {
+            /**
+             * @var $entity Reward
+             */
+            if(count($entity->approves) != intval(config('app.approves.rewards'))) {
                 $entity->disApprove();
             }
         }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Requests\StoreAchievementResponce;
 use App\Models\Achievement;
 use App\Http\Controllers\Controller;
+use App\Models\User;
 
 /**
  * Class AchievementController
@@ -18,6 +19,18 @@ class AchievementController extends Controller
     public function getAll()
     {
         return Achievement::with(['children', 'parent', 'authoredBy'])->get();
+    }
+
+    /** Get my achievements
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public function getMy()
+    {
+        /**
+         * @var $user User
+         */
+        $user = auth()->user();
+        return $user->achievements()->withPivotValue('approved', true)->scopes(['approved'])->get()->makeHidden('pivot');
     }
 
     /** Get Achievement with detail
