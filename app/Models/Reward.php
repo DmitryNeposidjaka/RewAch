@@ -17,6 +17,12 @@ class Reward extends Model implements HasApproved
 {
     use HasApprovedTrait;
 
+    protected $fillable = [
+        'user_id',
+        'achievement_id',
+        'approved'
+    ];
+
     /**
      * @param Builder $query
      * @return Builder
