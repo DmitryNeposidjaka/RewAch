@@ -4,8 +4,8 @@ namespace App\Providers;
 
 use App\Models\Approve;
 use App\Observers\ApproveObserver;
-use Illuminate\Support\Facades\App;
 use Illuminate\Support\ServiceProvider;
+use Laravel\Telescope\TelescopeServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -16,8 +16,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        if(App::environment('local')) {
+        if(app()->isLocal()) {
             $this->app->register('Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider');
+            $this->app->register(TelescopeServiceProvider::class);
         }
     }
 
