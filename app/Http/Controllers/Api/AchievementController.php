@@ -18,7 +18,7 @@ class AchievementController extends Controller
      */
     public function getAll()
     {
-        return Achievement::with(['children', 'parent', 'authoredBy'])->get();
+        return Achievement::with(['children', 'parent', 'authoredBy', 'categories'])->get();
     }
 
     /** Get my achievements
@@ -39,7 +39,7 @@ class AchievementController extends Controller
      */
     public function detail(Achievement $achievement)
     {
-        return $achievement->append('thumbnail_path')->load(['children', 'parent', 'approves']);
+        return $achievement->append('thumbnail_path')->load(['children', 'parent', 'approves', 'categories']);
     }
 
     /** Get Achievements waiting for approve

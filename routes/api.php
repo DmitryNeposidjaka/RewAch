@@ -45,4 +45,12 @@ Route::prefix('v1')->namespace('Api')->group(function () {
         Route::post('/{achievement}/to/{user}', 'RewardController@create')->name('reward.create');
         Route::post('/{achievement}/to/{user}/deny', 'RewardController@delete')->name('reward.delete');
     });
+
+    Route::prefix('category')->middleware('auth:api')->group(function () {
+        Route::get('/all', 'CategoryController@index')->name('category.all');
+        Route::get('/{category}/detail', 'CategoryController@show')->name('category.detail');
+        Route::post('/create', 'CategoryController@store')->name('category.create');
+        Route::post('/{category}/update', 'CategoryController@update')->name('category.update');
+        Route::delete('/{category}/delete', 'CategoryController@destroy')->name('category.delete');
+    });
 });

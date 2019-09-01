@@ -89,4 +89,12 @@ class Achievement extends Model implements HasApproved
     {
         return $this->belongsTo(Achievement::class, 'id', 'parent');
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function categories()
+    {
+        return $this->belongsToMany(Category::class);
+    }
 }
