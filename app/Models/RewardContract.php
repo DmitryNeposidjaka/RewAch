@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static Builder approved()
  * @method static Builder notApproved()
  */
-class Reward extends Model implements HasApproved
+class Reward extends Model implements HasApprovedContract
 {
     use HasApprovedTrait;
 

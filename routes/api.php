@@ -26,6 +26,8 @@ Route::prefix('v1')->namespace('Api')->group(function () {
         Route::get('/my', 'AchievementController@getMy')->name('achievement.my');
         Route::get('/waiting', 'AchievementController@getWaiting')->name('achievement.waiting');
         Route::get('/{achievement}/detail', 'AchievementController@detail')->name('achievement.detail');
+        Route::post('{achievement}/attach/category/{entity}', 'AchievementController@attach')->name('achievement.attach.category');
+        Route::delete('{achievement}/detach/category/{entity}', 'AchievementController@detach')->name('achievement.detach.category');
         Route::post('/', 'AchievementController@create')->name('achievement.create');
         Route::post('/{achievement}', 'AchievementController@update')->name('achievement.update');
         Route::delete('/{achievement}', 'AchievementController@delete')->name('achievement.delete');

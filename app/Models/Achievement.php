@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\Storage;
  * @method Builder approved()
  * @method Builder notApproved()
  */
-class Achievement extends Model implements HasApproved
+class Achievement extends Model implements HasApprovedContract
 {
     use SoftDeletes, HasApprovedTrait;
 

@@ -103,10 +103,11 @@ class User extends Authenticatable
     }
 
     /**
-     * @param HasApproved|Model|Achievement $model
+     * @param HasApprovedContract $model
+     * @return bool|null
      * @throws \Exception
      */
-    public function deny(HasApproved $model)
+    public function deny(HasApprovedContract $model)
     {
         if ($model->isApprovedBy($this)) {
             /**

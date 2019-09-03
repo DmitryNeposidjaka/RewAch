@@ -3,8 +3,14 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
-class Category extends Model
+/**
+ * Class Category
+ * @package App\Models
+ * @property Achievement[] $achievements
+ */
+class Category extends Model implements BelongsToAchievementsContract
 {
     const UPDATED_AT = null;
     const CREATED_AT = null;
@@ -14,7 +20,7 @@ class Category extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function achievements()
+    public function achievements(): BelongsToMany
     {
         return $this->belongsToMany(Achievement::class);
     }

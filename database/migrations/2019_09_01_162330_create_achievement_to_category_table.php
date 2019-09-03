@@ -17,6 +17,8 @@ class CreateAchievementToCategoryTable extends Migration
             $table->bigInteger('achievement_id')->unsigned();
             $table->bigInteger('category_id')->unsigned();
 
+            $table->unique(['achievement_id', 'category_id']);
+
             $table->foreign('achievement_id')
                 ->references('id')
                 ->on('achievements')
