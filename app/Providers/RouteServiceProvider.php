@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Models\Achievement;
+use App\Models\Category;
 use App\Models\Reward;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
@@ -28,10 +29,14 @@ class RouteServiceProvider extends ServiceProvider
         parent::boot();
 
         Route::bind('entity', function ($value) {
-            if (Route::current()->named('approve.achievement*')) {
+            $current_route = Route::current();
+
+            if ($current_route->named('approve.achievement*')) {
                 return Achievement::findOrFail($value);
-            } elseif (Route::current()->named('approve.reward*')) {
+            } elseif ($current_route->named('approve.reward*')) {
                 return Reward::findOrFail($value);
+            } elseif ($current_route->named('achievement.attach.category') || $current_route->named('achievement.detach.category')) {
+                return Category::findOrFail($value);
             } else {
                 abort(404);
                 return null;

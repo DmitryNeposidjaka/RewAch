@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\Storage;
  * @method Builder approved()
  * @method Builder notApproved()
  */
-class Achievement extends Model implements HasApproved
+class Achievement extends Model implements HasApprovedContract
 {
     use SoftDeletes, HasApprovedTrait;
 
@@ -88,5 +88,13 @@ class Achievement extends Model implements HasApproved
     public function children()
     {
         return $this->belongsTo(Achievement::class, 'id', 'parent');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function categories()
+    {
+        return $this->belongsToMany(Category::class);
     }
 }

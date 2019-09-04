@@ -6,7 +6,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Builder;
 
-interface HasApproved
+interface HasApprovedContract
 {
     public function isApprovedBy(User $user): bool;
 

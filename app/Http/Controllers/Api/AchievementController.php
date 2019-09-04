@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Api;
 use App\Http\Requests\StoreAchievementResponce;
 use App\Models\Achievement;
 use App\Http\Controllers\Controller;
+use App\Models\BelongsToAchievementsContract;
+use App\Models\Category;
 use App\Models\User;
 
 /**
@@ -18,7 +20,7 @@ class AchievementController extends Controller
      */
     public function getAll()
     {
-        return Achievement::with(['children', 'parent', 'authoredBy'])->get();
+        return Achievement::with(['children', 'parent', 'authoredBy', 'categories'])->get();
     }
 
     /** Get my achievements
@@ -39,7 +41,7 @@ class AchievementController extends Controller
      */
     public function detail(Achievement $achievement)
     {
-        return $achievement->append('thumbnail_path')->load(['children', 'parent', 'approves']);
+        return $achievement->append('thumbnail_path')->load(['children', 'parent', 'approves', 'categories']);
     }
 
     /** Get Achievements waiting for approve
@@ -65,6 +67,22 @@ class AchievementController extends Controller
         $achievement->save();
         return response()->json(['message' => 'Achievement created successful']);
     }
+
+    /**
+     * @param Achievement $achievement
+     * @param BelongsToAchievementsContract|Category $entity
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function attach(Achievement $achievement, BelongsToAchievementsContract $entity) {
+        $entity->achievements()->attach($achievement);
+        return response()->json(['message' => 'Attached successful']);
+    }
+
+    public function detach(Achievement $achievement, BelongsToAchievementsContract $entity) {
+        $entity->achievements()->detach($achievement);
+        return response()->json(['message' => 'Detached successful']);
+    }
+
 
     /** Update Achievement
      * @param StoreAchievementResponce $request
