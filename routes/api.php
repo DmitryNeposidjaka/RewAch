@@ -28,6 +28,8 @@ Route::prefix('v1')->namespace('Api')->group(function () {
         Route::get('/{achievement}/detail', 'AchievementController@detail')->name('achievement.detail');
         Route::post('{achievement}/attach/category/{entity}', 'AchievementController@attach')->name('achievement.attach.category');
         Route::delete('{achievement}/detach/category/{entity}', 'AchievementController@detach')->name('achievement.detach.category');
+        Route::post('{achievement}/attach/tag/{entity}', 'AchievementController@attach')->name('achievement.attach.tag');
+        Route::delete('{achievement}/detach/tag/{entity}', 'AchievementController@detach')->name('achievement.detach.tag');
         Route::post('/', 'AchievementController@create')->name('achievement.create');
         Route::post('/{achievement}', 'AchievementController@update')->name('achievement.update');
         Route::delete('/{achievement}', 'AchievementController@delete')->name('achievement.delete');
@@ -54,5 +56,13 @@ Route::prefix('v1')->namespace('Api')->group(function () {
         Route::post('/create', 'CategoryController@store')->name('category.create');
         Route::post('/{category}/update', 'CategoryController@update')->name('category.update');
         Route::delete('/{category}/delete', 'CategoryController@destroy')->name('category.delete');
+    });
+
+    Route::prefix('tag')->middleware('auth:api')->group(function () {
+        Route::get('/all', 'TagController@index')->name('tag.all');
+        Route::get('/{tag}/detail', 'TagController@show')->name('tag.detail');
+        Route::post('/create', 'TagController@store')->name('tag.create');
+        Route::post('/{tag}/update', 'TagController@update')->name('tag.update');
+        Route::delete('/{tag}/delete', 'TagController@destroy')->name('tag.delete');
     });
 });

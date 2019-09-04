@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Models\Achievement;
 use App\Models\Category;
 use App\Models\Reward;
+use App\Models\Tag;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 
@@ -37,6 +38,8 @@ class RouteServiceProvider extends ServiceProvider
                 return Reward::findOrFail($value);
             } elseif ($current_route->named('achievement.attach.category') || $current_route->named('achievement.detach.category')) {
                 return Category::findOrFail($value);
+            } elseif ($current_route->named('achievement.attach.tag') || $current_route->named('achievement.detach.tag')) {
+                return Tag::findOrFail($value);
             } else {
                 abort(404);
                 return null;
