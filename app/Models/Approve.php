@@ -29,6 +29,9 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Approve withTrashed()
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Approve withoutTrashed()
  * @mixin \Eloquent
+ * @property int $id
+ * @property-read \App\Models\User $surety
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Approve whereId($value)
  */
 class Approve extends Model
 {
