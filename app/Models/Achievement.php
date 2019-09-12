@@ -97,4 +97,23 @@ class Achievement extends Model implements HasApprovedContract
     {
         return $this->belongsToMany(Category::class);
     }
+
+    /**
+     * @param User $user
+     * @return bool
+     */
+    public function authorIs(User $user): bool
+    {
+        return $user->id === $this->author;
+    }
+
+    /**
+     * @param User $user
+     * @return bool
+     */
+    public function authorIsNot(User $user): bool
+    {
+        return !$this->authorIs($user);
+    }
+
 }

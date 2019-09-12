@@ -38,10 +38,18 @@ class LoginController extends Controller
 
         $access->token->save();
 
-        return response()->json([
-            'token_type' => 'Bearer',
-            'token' => $access->accessToken,
-            'expires_at' => Carbon::parse($access->token->expires_at)->toDateTimeString()
-        ], 200);
+        if ($user->hasPermissionTo('to login', 'api') or $user->hasRole('superadmin')) {
+            return response()->json([
+                'token_type' => 'Bearer',
+                'token' => $access->accessToken,
+                'expires_at' => Carbon::parse($access->token->expires_at)->toDateTimeString()
+            ], 200);
+        } else {
+            return response()->json([
+                'message' => 'You allowed to login',
+                'errors' => 'Unauthorised'
+            ], 403);
+        }
+
     }
 }

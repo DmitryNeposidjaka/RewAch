@@ -29,8 +29,10 @@ class AssignedRolesAndPermissionsSeeder extends Seeder
             'edit achievement',
             'delete achievement',
             'get waiting achievements',
-            'attach achievement',
-            'detach achievement',
+            'achievement attach category',
+            'achievement detach category',
+            'achievement attach tag',
+            'achievement detach tag',
             'get rewards',
             'get waiting rewards',
             'reward achievement',
@@ -44,7 +46,7 @@ class AssignedRolesAndPermissionsSeeder extends Seeder
             'update category',
             'delete category',
             'create tag',
-            'get tag',
+            'get tags',
             'update tag',
             'delete tag',
         ];
@@ -57,7 +59,7 @@ class AssignedRolesAndPermissionsSeeder extends Seeder
             'create category',
             'get categories',
             'create tag',
-            'get tag',
+            'get tags',
         ];
 
         //  find users Models

@@ -79,4 +79,22 @@ class Reward extends Model implements HasApprovedContract
         return $this->belongsTo(Achievement::class);
     }
 
+    /**
+     * @param User $user
+     * @return bool
+     */
+    public function userIs(User $user): bool
+    {
+        return $this->user_id == $user->id;
+    }
+
+    /**
+     * @param User $user
+     * @return bool
+     */
+    public function userISNot(User $user): bool
+    {
+        return !$this->userIs($user);
+    }
+
 }

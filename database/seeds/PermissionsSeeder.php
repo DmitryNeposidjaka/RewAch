@@ -19,6 +19,10 @@ class PermissionsSeeder extends Seeder
 
             ['name' => 'create achievement', 'guard_name' => 'api'],
             ['name' => 'get achievements', 'guard_name' => 'api'],
+            ['name' => 'achievement attach category', 'guard_name' => 'api'],
+            ['name' => 'achievement detach category', 'guard_name' => 'api'],
+            ['name' => 'achievement attach tag', 'guard_name' => 'api'],
+            ['name' => 'achievement detach tag', 'guard_name' => 'api'],
             ['name' => 'get waiting achievements', 'guard_name' => 'api'],
             ['name' => 'edit achievement', 'guard_name' => 'api'],
             ['name' => 'delete achievement', 'guard_name' => 'api'],
@@ -49,7 +53,7 @@ class PermissionsSeeder extends Seeder
             //  tags
 
             ['name' => 'create tag', 'guard_name' => 'api'],
-            ['name' => 'get tag', 'guard_name' => 'api'],
+            ['name' => 'get tags', 'guard_name' => 'api'],
             ['name' => 'update tag', 'guard_name' => 'api'],
             ['name' => 'delete tag', 'guard_name' => 'api'],
         ];
