@@ -24,8 +24,8 @@ class AbilitiesController extends Controller
             'name' => 'request|string|max:255',
             'guard_name' => 'request|string|max:255'
         ]);
-        Role::create($request->only(['name', 'guard_name']));
-        return response()->json(['message' => 'Role has been created'])->setStatusCode(201);
+        $role = Role::create($request->only(['name', 'guard_name']));
+        return response()->json(['message' => 'Role has been created', 'entity' => $role])->setStatusCode(201);
     }
 
     /**
@@ -39,8 +39,8 @@ class AbilitiesController extends Controller
             'name' => 'request|string|max:255',
             'guard_name' => 'request|string|max:255'
         ]);
-        Role::create($request->only(['name', 'guard_name']));
-        return response()->json(['message' => 'Permission has been created'])->setStatusCode(201);
+        $permission = Permission::create($request->only(['name', 'guard_name']));
+        return response()->json(['message' => 'Permission has been created', 'entity' => $permission])->setStatusCode(201);
     }
 
     /**
